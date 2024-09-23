@@ -1,5 +1,6 @@
 package com.task;
 import java.util.List;
+
 public class Task{
 	String strinput;
 	int charcount = 0;

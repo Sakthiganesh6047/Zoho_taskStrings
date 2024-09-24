@@ -6,7 +6,7 @@ public class Runner{
 	public static void main(String[] args){
 	Scanner scanner = new Scanner(System.in);
 
-	if(args.length > 0){
+	if(args.length > 0 && args[0] != null){
 		Task task = new Task(args[0]);
 
 		//(1) Printing length
@@ -41,19 +41,44 @@ public class Runner{
 		else{System.out.println("The greatest position of the char is " +  task.greatPosition(repeatingchar));}
 
 		//(6) Last Five Character
-		System.out.println("The last five char is " + task.lastFiveChar());
+		while(true){
+			System.out.println("Enter the required no. of characters to print from the last: ");
+			int nooflastchar = scanner.nextInt();
+			if(nooflastchar <= 0){
+				System.out.println("Entered number must be greater than 0");
+			}
+			else{System.out.println("The last " + nooflastchar + "char is " + task.lastFiveChar(nooflastchar));
+			break;
+			}
+		}
 
 		//(7) First three character
-		System.out.println("The First three char is " + task.firstThreeChar());
+		while(true){
+			System.out.println("Enter the required no. of characters to print from beginning: ");
+			int noofstartchar = scanner.nextInt();
+			if(noofstartchar <= 0){
+				System.out.println("Entered number must be greater than 0");
+			}
+			else{System.out.println("The First " + noofstartchar +"char is " + task.firstThreeChar(noofstartchar));
+			break;
+			}
+		}
 
 		//(8) Replace First three character with XYZ
-		System.out.println("The Replaced String is " + task.firstThreeReplace());
+		scanner.nextLine();
+		System.out.println("Enter the characters to substitute: ");
+		String substitutestring = scanner.nextLine();
+		System.out.println("The Replaced String is " + task.firstThreeReplace(substitutestring));
 
 		//(9) Checking String starts with ent
-		System.out.println(task.checkingFirstThree());
+		System.out.println("Enter the string to check from the start: ");
+		String startcheckstring = scanner.nextLine();
+		System.out.println(task.checkingFirstThree(startcheckstring));
 
 		//(10) Checking String ends with le
-		System.out.println(task.checkingLastTwo());
+		System.out.println("Enter the string to check from the end: ");
+		String endcheckstring = scanner.nextLine();
+		System.out.println(task.checkingLastTwo(endcheckstring));
 
 		//(11) Coverting to UpperCase
 		System.out.println(task.convertingToUpperCase());
@@ -96,14 +121,14 @@ public class Runner{
 		//(18) Equal case sensitive
 		System.out.println("Enter the first string");
 		String firststringline = scanner.nextLine();
-		System.out.println("Enter the first string");
+		System.out.println("Enter the second string");
 		String secondstringline = scanner.nextLine();
 		System.out.println(Task.areStringsCaseEqual(firststringline, secondstringline));
 
 		//(19) Equal ignore case sensitive
 		System.out.println("Enter the first string");
 		String firststringlineic = scanner.nextLine();
-		System.out.println("Enter the first string");
+		System.out.println("Enter the second string");
 		String secondstringlineic = scanner.nextLine();
 		System.out.println(Task.areStringsIgnoreCaseEqual(firststringlineic, secondstringlineic));
 

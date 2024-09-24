@@ -1,6 +1,5 @@
 package com.task;
 import java.util.List;
-
 public class Task{
 	String strinput;
 	int charcount = 0;
@@ -32,28 +31,28 @@ public class Task{
 		return strinput.lastIndexOf(charinput);
 	}
 
-	public String lastFiveChar(){
-		if(strinput.length() < 5){return strinput;}
-		else{return strinput.substring(strinput.length() -5);}
+	public String lastFiveChar(int endcharlength){
+		if(strinput.length() < endcharlength){return strinput;}
+		else{return strinput.substring(strinput.length() - endcharlength);}
 	}
 
-	public String firstThreeChar(){
-		if(strinput.length() < 3){return strinput;}
-		else{return strinput.substring(0,3);}
+	public String firstThreeChar(int startcharlength){
+		if(strinput.length() < startcharlength){return strinput;}
+		else{return strinput.substring(0,startcharlength);}
 	}
 	
-	public String firstThreeReplace(){
-		if(strinput.length() < 2){return "XYZ";}
-		else{return "XYZ" + strinput.substring(3);}
+	public String firstThreeReplace(String subcharacters){
+		int lensubchar = subcharacters.length();
+		if(strinput.length() < lensubchar){return subcharacters;}
+		else{return subcharacters + strinput.substring(lensubchar);}
 	}
 
-	public Boolean checkingFirstThree(){
-		if(strinput.substring(0,3) == "ent"){return true;}//return (strinput.startsWith("ent"));
-		else{return false;}
+	public Boolean checkingFirstThree(String startchars){
+		return (strinput.startsWith(startchars));
 	}
 
-	public Boolean checkingLastTwo(){
-		return (strinput.endsWith("el"));
+	public Boolean checkingLastTwo(String endchars){
+		return (strinput.endsWith(endchars));
 	}
 
 	public String convertingToUpperCase(){

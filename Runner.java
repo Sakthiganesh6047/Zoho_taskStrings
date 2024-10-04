@@ -1,144 +1,219 @@
 package com.runner;
+
 import com.task.*;
+import com.invalidinputexception.*;
 import java.util.*;
 
-public class Runner{
-	public static void main(String[] args){
-	Scanner scanner = new Scanner(System.in);
+public class Runner {
+    public static void main(String[] args)throws InvalidInputException{
+        Scanner scanner = new Scanner(System.in);
 
-	if(args.length > 0 && args[0] != null){
-		Task task = new Task(args[0]);
+		try{
+			if (args.length > 0){
+				Task task = new Task(args[0]);
+				int choice;
+				int enteredchoice;
 
-		//(1) Printing length
-		int stringlength = task.stringLength();
-		System.out.println("Length of the String is "+ stringlength);
+				do{
+					System.out.println("Select an operation to perform:");
+					System.out.println("1. Print String Length");
+					System.out.println("2. Convert into Character Array");
+					System.out.println("3. Penultimate Character");
+					System.out.println("4. Number of Occurrences");
+					System.out.println("5. Greatest Position of Character");
+					System.out.println("6. Last N Characters");
+					System.out.println("7. First N Characters");
+					System.out.println("8. Replace First Three Characters");
+					System.out.println("9. Check String Starts With");
+					System.out.println("10. Check String Ends With");
+					System.out.println("11. Convert to Uppercase");
+					System.out.println("12. Convert to Lowercase");
+					System.out.println("13. Reverse String");
+					System.out.println("14. Accept Multiple Strings");
+					System.out.println("15. Concatenate Strings");
+					System.out.println("16. Enclose in Array");
+					System.out.println("17. Merge Strings with Hyphen");
+					System.out.println("18. Equal Case Sensitive");
+					System.out.println("19. Equal Ignore Case Sensitive");
+					System.out.println("20. Space Check");
+					System.out.println("0. Exit");
+					System.out.print("Enter your choice: ");
+					enteredchoice = scanner.nextInt();
+					scanner.nextLine();
 
-		//(2) Converting into character array
-		char[] arrayresult = task.charArray();
-		for(char i : arrayresult){
-			System.out.print(i + " ");
+					switch (enteredchoice){
+						case 1:
+							int stringLength = task.stringLength();
+							System.out.println("Length of the String is " + stringLength);
+							break;
+
+						case 2:
+							char[] arrayResult = task.charArray();
+							System.out.print("Character Array: ");
+							for (char c : arrayResult) {
+								System.out.print(c + " ");
+							}
+							System.out.println();
+							break;
+
+						case 3:
+							char penultimateResult = task.penultimateChar();
+							System.out.println("The penultimate character is " + penultimateResult);
+							break;
+
+						case 4:
+							System.out.print("Enter a character to search: ");
+							char searchingChar = scanner.next().charAt(0);
+							System.out.println("The Number of Occurrences of the char is " + task.charOccurrence(searchingChar));
+							break;
+
+						case 5:
+							System.out.print("Enter a character to find Greatest Position: ");
+							char repeatingChar = scanner.next().charAt(0);
+							if (task.greatPosition(repeatingChar) == -1){
+								System.out.println("No such character exists.");
+							} else {
+								System.out.println("The greatest position of the char is " + task.greatPosition(repeatingChar));
+							}
+							break;
+
+						case 6:
+							while (true) {
+								try{
+									System.out.print("Enter the number of characters to print from the last: ");
+									int noOfLastChars = scanner.nextInt();
+									System.out.println("The last " + noOfLastChars + " characters are: " + task.lastFiveChar(noOfLastChars));
+									break;
+									}
+								catch (InputMismatchException e){
+									System.out.println("Invalid input, Please enter an integer.");
+									scanner.nextLine();
+								}
+							}
+							break;
+
+						case 7:
+							while (true){
+								try {
+									System.out.print("Enter the number of characters to print from the beginning: ");
+									int noOfStartChars = scanner.nextInt();
+									System.out.println("The First " + noOfStartChars + " characters are: " + task.firstThreeChar(noOfStartChars));
+									break;
+									}
+									catch(InputMismatchException e){
+									System.out.println("Invalid input, Please enter an integer.");
+									scanner.nextLine();
+								}
+							}
+							break;
+
+						case 8:
+							System.out.print("Enter the characters to substitute: ");
+							String substituteString = scanner.nextLine();
+							System.out.println("The Replaced String is: " + task.firstThreeReplace(substituteString));
+							break;
+
+						case 9:
+							System.out.print("Enter the string to check from the start: ");
+							String startCheckString = scanner.nextLine();
+							System.out.println(task.checkingFirstThree(startCheckString));
+							break;
+
+						case 10:
+							System.out.print("Enter the string to check from the end: ");
+							String endCheckString = scanner.nextLine();
+							System.out.println(task.checkingLastTwo(endCheckString));
+							break;
+
+						case 11:
+							System.out.println(task.convertingToUpperCase());
+							break;
+
+						case 12:
+							System.out.println(task.convertingToLowerCase());
+							break;
+
+						case 13:
+							System.out.println(task.reversingString());
+							break;
+
+						case 14:
+							System.out.print("Enter a line of multiple strings: ");
+							String multiStringLine = scanner.nextLine();
+							System.out.println("The Entered Multiple String line is: " + multiStringLine);
+							break;
+
+						case 15:
+							try{
+							System.out.print("Enter a line of multiple strings: ");
+							String concatenateStringLine = scanner.nextLine();
+							System.out.println("The Concatenated String: " + Task.concatenateMultipleString(concatenateStringLine));
+							break;
+							}
+							catch(InvalidInputException e){
+								System.out.println(e.getMessage());
+							}
+
+						case 16:
+							System.out.print("Enter a line of multiple strings: ");
+							String toBeEnclosedLine = scanner.nextLine();
+							String[] enclosedArray = Task.encloseInArray(toBeEnclosedLine);
+							System.out.println("Enclosed Strings:");
+							for (String str : enclosedArray){
+								System.out.println(str);
+							}
+							break;
+
+						case 17:
+							ArrayList<String> multiStringArrayList = new ArrayList<>();
+							System.out.println("Enter a line of multiple strings (enter an empty line to finish): ");
+							while (true) {
+								String stringInput = scanner.nextLine();
+								if (stringInput.isEmpty()) {
+									break;
+								}
+								multiStringArrayList.add(stringInput);
+							}
+							System.out.println("Merged string: " + Task.mergeStringWithSymbol(multiStringArrayList));
+							break;
+
+						case 18:
+							System.out.print("Enter the first string: ");
+							String firstStringLine = scanner.nextLine();
+							System.out.print("Enter the second string: ");
+							String secondStringLine = scanner.nextLine();
+							System.out.println(Task.areStringsCaseEqual(firstStringLine, secondStringLine));
+							break;
+
+						case 19:
+							System.out.print("Enter the first string: ");
+							String firstStringLineIC = scanner.nextLine();
+							System.out.print("Enter the second string: ");
+							String secondStringLineIC = scanner.nextLine();
+							System.out.println(Task.areStringsIgnoreCaseEqual(firstStringLineIC, secondStringLineIC));
+							break;
+
+						case 20:
+							System.out.print("Enter the string: ");
+							String toBeTrimmedString = scanner.nextLine();
+							System.out.println(Task.trimString(toBeTrimmedString));
+							break;
+
+						case 0:
+							System.out.println("Terminated successfully");
+							break;
+					}
+				}
+ 
+				while (enteredchoice != 0);
+
 			}
-
-		//(3) Penultimate
-		if(task.stringLength() >= 2){
-			char penultimateresult = task.penultimateChar();
-			System.out.println("The penultimate character is " + penultimateresult);
-			}
-		else{
-			System.out.println("The string is too short to have a penultimate");
-			}
-		
-		//(4) Number of Occurrences
-		System.out.println("Enter a character to search");
-		char searchingchar = scanner.next().charAt(0);
-		System.out.println("The Number of Occurrences of the char is " + task.charOccurrence(searchingchar));
-
-		//(5) Greatest Position
-		System.out.println("Enter a char to find Greatest Position");
-		char repeatingchar = scanner.next().charAt(0);
-		if(task.greatPosition(repeatingchar) == -1){
-			System.out.println("No such character exists");}
-		else{System.out.println("The greatest position of the char is " +  task.greatPosition(repeatingchar));}
-
-		//(6) Last Five Character
-		while(true){
-			System.out.println("Enter the required no. of characters to print from the last: ");
-			int nooflastchar = scanner.nextInt();
-			if(nooflastchar <= 0){
-				System.out.println("Entered number must be greater than 0");
-			}
-			else{System.out.println("The last " + nooflastchar + "char is " + task.lastFiveChar(nooflastchar));
-			break;
+			else {
+				System.out.println("No input found");
 			}
 		}
-
-		//(7) First three character
-		while(true){
-			System.out.println("Enter the required no. of characters to print from beginning: ");
-			int noofstartchar = scanner.nextInt();
-			if(noofstartchar <= 0){
-				System.out.println("Entered number must be greater than 0");
-			}
-			else{System.out.println("The First " + noofstartchar +"char is " + task.firstThreeChar(noofstartchar));
-			break;
-			}
+		catch(InvalidInputException e){
+			System.out.println(e.getMessage());
 		}
-
-		//(8) Replace First three character with XYZ
-		scanner.nextLine();
-		System.out.println("Enter the characters to substitute: ");
-		String substitutestring = scanner.nextLine();
-		System.out.println("The Replaced String is " + task.firstThreeReplace(substitutestring));
-
-		//(9) Checking String starts with ent
-		System.out.println("Enter the string to check from the start: ");
-		String startcheckstring = scanner.nextLine();
-		System.out.println(task.checkingFirstThree(startcheckstring));
-
-		//(10) Checking String ends with le
-		System.out.println("Enter the string to check from the end: ");
-		String endcheckstring = scanner.nextLine();
-		System.out.println(task.checkingLastTwo(endcheckstring));
-
-		//(11) Coverting to UpperCase
-		System.out.println(task.convertingToUpperCase());
-
-		//(12) Converting to Lowercase
-		System.out.println(task.convertingToLowerCase());
-
-		//(13) Reversing a string
-		System.out.println(task.reversingString());
-
-		//(14) Accepting Multiple Strings
-		scanner.nextLine();
-		System.out.println("Enter a line of multiple strings");
-		String multistringline = scanner.nextLine();
-		System.out.println("The Entered Multiple String line is " + multistringline);
-
-		//(15) Concatenating strings
-		System.out.println("Enter a line of multiple strings");
-		String concatenatestringline = scanner.nextLine();
-		System.out.println("The Concatenated String: " + Task.concatenateMultipleString(concatenatestringline));
-
-		//(16) Enclosing in a Array
-		System.out.println("Enter a line of multiple strings");
-		String tobeenclosedline = scanner.nextLine();
-		String[] enclosedarray = Task.encloseInArray(tobeenclosedline);
-		for (String i : enclosedarray){System.out.println(i);}
-
-		//(17) Merging string with hyphen
-		ArrayList<String> multistringarraylist = new ArrayList<>();
-		System.out.println("Enter a line of multiple strings");
-		while(true){
-			String stringinput = scanner.nextLine();
-			if(stringinput.isEmpty() == true){
-				break;
-			}
-		multistringarraylist.add(stringinput);	
-		}
-		System.out.println("Merged string: " + Task.mergeStringWithSymbol(multistringarraylist));
-
-		//(18) Equal case sensitive
-		System.out.println("Enter the first string");
-		String firststringline = scanner.nextLine();
-		System.out.println("Enter the second string");
-		String secondstringline = scanner.nextLine();
-		System.out.println(Task.areStringsCaseEqual(firststringline, secondstringline));
-
-		//(19) Equal ignore case sensitive
-		System.out.println("Enter the first string");
-		String firststringlineic = scanner.nextLine();
-		System.out.println("Enter the second string");
-		String secondstringlineic = scanner.nextLine();
-		System.out.println(Task.areStringsIgnoreCaseEqual(firststringlineic, secondstringlineic));
-
-		//(20) Space Check
-		System.out.println("Enter the string");
-		String tobetrimmedstring = scanner.nextLine();
-		System.out.println(Task.trimString(tobetrimmedstring));
-		}
-	else{
-		System.out.println("No input found");
-		}
-	}
+    }
 }

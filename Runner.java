@@ -38,8 +38,17 @@ public class Runner {
 					System.out.println("20. Space Check");
 					System.out.println("0. Exit");
 					System.out.print("Enter your choice: ");
-					enteredchoice = scanner.nextInt();
-					scanner.nextLine();
+					while (true){
+						try {
+							enteredchoice = scanner.nextInt();
+							scanner.nextLine();
+							break;
+						}
+						catch (InputMismatchException e){
+							System.out.println("Invalid Choice, Please enter a valid number: ");
+							scanner.nextLine();
+						}
+					}
 
 					switch (enteredchoice){
 						case 1:

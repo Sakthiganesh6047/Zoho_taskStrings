@@ -28,11 +28,11 @@ public class Task {
         return strinput.toCharArray();
     }
 
-    public char penultimateChar() throws InvalidInputException{
-        if (inputstringlength < 2) {
-            throw new InvalidInputException("String is too little to have a penultimate");
+    public char penultimateChar(int indexofcharacter) throws InvalidInputException{
+        if (inputstringlength < indexofcharacter) {
+            throw new InvalidInputException("String is too little");
         }
-        return strinput.charAt(inputstringlength - 2);
+        return strinput.charAt(inputstringlength - indexofcharacter);
     }
 
     public int charOccurrence(char charinput) throws InvalidInputException{
@@ -130,11 +130,11 @@ public class Task {
         return multistringinput.split(" ");
     }
 
-    public static String mergeStringWithSymbol(List<String> multistringinput) throws InvalidInputException{
+    public static String mergeStringWithSymbol(List<String> multistringinput , CharSequence joiningcharacter) throws InvalidInputException{
         if (multistringinput == null || multistringinput.isEmpty()) {
             throw new InvalidInputException("List can't be null or empty");
         }
-        return String.join("-", multistringinput);
+        return String.join(joiningcharacter, multistringinput);
     }
 
     public static Boolean areStringsCaseEqual(String str1, String str2) throws InvalidInputException{

@@ -53,12 +53,13 @@ public class Runner {
 							for (char c : arrayResult) {
 								System.out.print(c + " ");
 							}
-							System.out.println();
 							break;
 
 						case 3:
-							char penultimateResult = task.penultimateChar();
-							System.out.println("The penultimate character is " + penultimateResult);
+							System.out.println("Enter the index to print the character from the last: ");
+							int charindex = scanner.nextInt();
+							char penultimateResult = task.penultimateChar(charindex);
+							System.out.println("The character from last " + charindex + " places is " + penultimateResult);
 							break;
 
 						case 4:
@@ -174,7 +175,9 @@ public class Runner {
 								}
 								multiStringArrayList.add(stringInput);
 							}
-							System.out.println("Merged string: " + Task.mergeStringWithSymbol(multiStringArrayList));
+							System.out.println("Enter the joining character: ");
+							CharSequence joiningcharacter = scanner.nextLine();
+							System.out.println("Merged string: " + Task.mergeStringWithSymbol(multiStringArrayList , joiningcharacter));
 							break;
 
 						case 18:

@@ -1,110 +1,108 @@
 package com.task;
 
 import java.util.*;
-import com.invalidinputexception.*;
+import com.nullemptyexception.*;
 
 public class Task {
-    String strinput;
-    int charcount = 0;
-    int inputstringlength;
+    private int charcount = 0;
+    private int inputstringlength;
 
-    public Task(String strinput) throws InvalidInputException{
-        this.strinput = strinput;
-        stringValidity(strinput);
-        this.inputstringlength = strinput.length();
-    }
-
-    private static void stringValidity(String enteringstring) throws InvalidInputException{
+    private static void checkNullOrEmpty(String enteringstring) throws NullEmptyException{
         if (enteringstring == null || enteringstring.isEmpty()){
-            throw new InvalidInputException("Input can't be null or empty");
+            throw new NullEmptyException("Input can't be null or empty");
         }
     }
 
-    public int stringLength(){
-        return inputstringlength;
+    public int getStringLength(String inputstring){
+        return inputstring.length();
     }
 
-    public char[] charArray(){
-        return strinput.toCharArray();
+    public char[] ConvertCharArray(String chararrayinput){
+        return chararrayinput.toCharArray();
     }
 
-    public char penultimateChar(int indexofcharacter) throws InvalidInputException{
-        if (inputstringlength < indexofcharacter) {
-            throw new InvalidInputException("String is too little");
+    public char getPenultimateChar(String penultimateinput, int indexofcharacter) throws NullEmptyException{
+        if (penultimateinput.length() < indexofcharacter) {
+            throw new NullEmptyException("String is too little");
         }
-        return strinput.charAt(inputstringlength - indexofcharacter);
+        return penultimateinput.charAt(penultimateinput.length() - indexofcharacter);
     }
 
-    public int charOccurrence(char charinput) throws InvalidInputException{
-        stringValidity(String.valueOf(charinput));
+    public int getCharOccurrence(String occurrenceinput , char charinput) throws NullEmptyException{
+        checkNullOrEmpty(occurrenceinput);
+		checkNullOrEmpty(String.valueOf(charinput));
         charcount = 0;
-        for (int i = 0; i < inputstringlength; i++){
-            if (strinput.charAt(i) == charinput){
+        for (int i = 0; i < occurrenceinput.length(); i++){
+            if (occurrenceinput.charAt(i) == charinput){
                 charcount++;
             }
         }
         return charcount;
     }
 
-    public int greatPosition(char charinput) throws InvalidInputException{
-        stringValidity(String.valueOf(charinput));
-        return strinput.lastIndexOf(charinput);
+    public int getGreatestPosition(String greatestpositioninput , char charinput) throws NullEmptyException{
+        checkNullOrEmpty(greatestpositioninput);
+		checkNullOrEmpty(String.valueOf(charinput));
+        return greatestpositioninput.lastIndexOf(charinput);
     }
 
-    public String lastFiveChar(int endcharlength) throws InvalidInputException{
+    public String getLastNChar(String lastncharinput , int endcharlength) throws NullEmptyException{
         if (endcharlength <= 0){
-            throw new InvalidInputException("Input must be greater than 0");
+            throw new NullEmptyException("Input must be greater than 0");
         }
-        else if (inputstringlength < endcharlength){
-            return strinput;
+        else if (lastncharinput.length() < endcharlength){
+            return lastncharinput;
         } 
 		else {
-            return strinput.substring(inputstringlength - endcharlength);
+            return lastncharinput.substring(lastncharinput.length() - endcharlength);
         }
     }
 
-    public String firstThreeChar(int startcharlength) throws InvalidInputException {
+    public String getFirstNChar(String firstncharinput , int startcharlength) throws NullEmptyException {
         if (startcharlength <= 0){
-            throw new InvalidInputException("Input must be greater than 0");
+            throw new NullEmptyException("Input must be greater than 0");
         }
-        else if (inputstringlength < startcharlength){
-            return strinput;
+        else if (firstncharinput.length() < startcharlength){
+            return firstncharinput;
         } else {
-            return strinput.substring(0, startcharlength);
+            return firstncharinput.substring(0, startcharlength);
         }
     }
 
-    public String firstThreeReplace(String subcharacters) throws InvalidInputException {
-        stringValidity(subcharacters);
-        int lensubchar = subcharacters.length();
-        if (inputstringlength < lensubchar){
+    public String replaceSubstring(String replacefirstninput , String subcharacters , int noofcharacterstoreplace) throws NullEmptyException {
+        checkNullOrEmpty(replacefirstninput);
+		checkNullOrEmpty(subcharacters);
+        //int lensubchar = subcharacters.length();
+        if (replacefirstninput.length() < noofcharacterstoreplace){
             return subcharacters;
         } else {
-            return subcharacters + strinput.substring(lensubchar);
+            return subcharacters + replacefirstninput.substring(noofcharacterstoreplace);
         }
     }
 
-    public Boolean checkingFirstThree(String startchars) throws InvalidInputException{
-        stringValidity(startchars);
-        return strinput.startsWith(startchars);
+    public Boolean checkingFirstThree(String startswithinput , String startchars) throws NullEmptyException{
+        checkNullOrEmpty(startswithinput);
+		checkNullOrEmpty(startchars);
+        return startswithinput.startsWith(startchars);
     }
 
-    public Boolean checkingLastTwo(String endchars) throws InvalidInputException{
-        stringValidity(endchars);
-        return strinput.endsWith(endchars);
+    public Boolean checkingLastTwo(String endswithinput , String endchars) throws NullEmptyException{
+        checkNullOrEmpty(endswithinput);
+		checkNullOrEmpty(endchars);
+        return endswithinput.endsWith(endchars);
     }
 
-    public String convertingToUpperCase(){
-        return strinput.toUpperCase();
+    public String convertingToUpperCase(String touppercaseinput){
+        return touppercaseinput.toUpperCase();
     }
 
-    public String convertingToLowerCase(){
-        return strinput.toLowerCase();
+    public String convertingToLowerCase(String tolowercaseinput){
+        return tolowercaseinput.toLowerCase();
     }
 
-    public String reversingString(){
+    public String reversingString(String reversinginput){
         ArrayList<Character> charlist = new ArrayList<>();
-        for (char c : strinput.toCharArray()) {
+        for (char c : reversinginput.toCharArray()) {
             charlist.add(c);
         }
         Collections.reverse(charlist);
@@ -115,42 +113,43 @@ public class Task {
         return new String(reversedarray);
     }
 
-    public static String concatenateMultipleString(String concatenatestringline) throws InvalidInputException{
-        stringValidity(concatenatestringline);
+    public String concatenateMultipleString(String concatenatestringline , String splittingcharacter) throws NullEmptyException{
+        checkNullOrEmpty(concatenatestringline);
         String concatenatedstring = "";
-        String[] concatenatedarray = concatenatestringline.split(" ");
+        String[] concatenatedarray = concatenatestringline.split(splittingcharacter);
         for (String i : concatenatedarray) {
             concatenatedstring = concatenatedstring + i;
         }
         return concatenatedstring;
     }
 
-    public static String[] encloseInArray(String multistringinput) throws InvalidInputException{
-        stringValidity(multistringinput);
-        return multistringinput.split(" ");
+    public String[] encloseInArray(String multistringinput , String splittingchars) throws NullEmptyException{
+        checkNullOrEmpty(multistringinput);
+		checkNullOrEmpty(String.valueOf(splittingchars));
+        return multistringinput.split(splittingchars);
     }
 
-    public static String mergeStringWithSymbol(List<String> multistringinput , CharSequence joiningcharacter) throws InvalidInputException{
+    public String mergeStringWithSymbol(List<String> multistringinput , CharSequence joiningcharacter) throws NullEmptyException{
         if (multistringinput == null || multistringinput.isEmpty()) {
-            throw new InvalidInputException("List can't be null or empty");
+            throw new NullEmptyException("List can't be null or empty");
         }
         return String.join(joiningcharacter, multistringinput);
     }
 
-    public static Boolean areStringsCaseEqual(String str1, String str2) throws InvalidInputException{
-        stringValidity(str1);
-        stringValidity(str2);
+    public Boolean areStringsCaseEqual(String str1, String str2) throws NullEmptyException{
+        checkNullOrEmpty(str1);
+        checkNullOrEmpty(str2);
         return str1.equals(str2);
     }
 
-    public static Boolean areStringsIgnoreCaseEqual(String str1, String str2) throws InvalidInputException{
-        stringValidity(str1);
-        stringValidity(str2);
+    public Boolean areStringsIgnoreCaseEqual(String str1, String str2) throws NullEmptyException{
+        checkNullOrEmpty(str1);
+        checkNullOrEmpty(str2);
         return str1.equalsIgnoreCase(str2);
     }
 
-    public static String trimString(String str) throws InvalidInputException{
-        stringValidity(str);
+    public String trimString(String str) throws NullEmptyException{
+        checkNullOrEmpty(str);
         return str.trim();
     }
 }

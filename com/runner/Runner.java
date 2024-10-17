@@ -8,12 +8,12 @@ public class Runner {
     public static void main(String[] args)throws NullEmptyException{
         Scanner scanner = new Scanner(System.in);
 		Task task = new Task();
+		int choice;
+		int enteredchoice = 1;
+		do{
 
-		try{
-			int choice;
-			int enteredchoice;
-
-			do{
+			try{
+				
 				System.out.println("Select an operation to perform:");
 				System.out.println("1. Print String Length");
 				System.out.println("2. Convert into Character Array");
@@ -37,6 +37,7 @@ public class Runner {
 				System.out.println("20. Space Check");
 				System.out.println("0. Exit");
 				System.out.print("Enter your choice: ");
+				
 				while (true){
 					try {
 						enteredchoice = scanner.nextInt();
@@ -51,7 +52,13 @@ public class Runner {
 
 				switch (enteredchoice){
 					case 1:
-						System.out.println("Length of the String is " + task.getStringLength(args[0]));
+						if(args.length > 0){
+							task.checkNullOrEmpty(args[0]);
+							System.out.println("Length of the String is " + task.getStringLength(args[0]));
+						}
+						else{
+							System.out.println("Input not found in the arguments");
+						}
 						break;
 
 					case 2:
@@ -138,7 +145,7 @@ public class Runner {
 						String startswithinput = scanner.nextLine();
 						System.out.print("Enter the string to check from the start: ");
 						String startCheckString = scanner.nextLine();
-						System.out.println(task.checkingFirstThree(startswithinput , startCheckString));
+						System.out.println(task.compareStartChars(startswithinput , startCheckString));
 						break;
 
 					case 10:
@@ -146,7 +153,7 @@ public class Runner {
 						String endswithinput = scanner.nextLine();
 						System.out.print("Enter the string to check from the end: ");
 						String endCheckString = scanner.nextLine();
-						System.out.println(task.checkingLastTwo(endswithinput , endCheckString));
+						System.out.println(task.compareEndChars(endswithinput , endCheckString));
 						break;
 
 					case 11:
@@ -170,8 +177,11 @@ public class Runner {
 					case 14:
 						System.out.print("Enter a line of multiple strings: ");
 						String multiStringLine = scanner.nextLine();
+						task.checkNullOrEmpty(multiStringLine);
 						System.out.println("The Entered Multiple String line is: " + multiStringLine);
 						break;
+						
+						
 
 					case 15:
 						try{
@@ -238,11 +248,10 @@ public class Runner {
 						break;
 				}
 			}
-
-			while (enteredchoice != 0);
-		}
 		catch(NullEmptyException e){
 			System.out.println(e.getMessage());
+			}
 		}
+		while (enteredchoice != 0);
     }
 }

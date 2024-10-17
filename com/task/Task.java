@@ -5,25 +5,26 @@ import com.nullemptyexception.*;
 
 public class Task {
     private int charcount = 0;
-    private int inputstringlength;
 
-    private static void checkNullOrEmpty(String enteringstring) throws NullEmptyException{
+    public void checkNullOrEmpty(String enteringstring) throws NullEmptyException{
         if (enteringstring == null || enteringstring.isEmpty()){
             throw new NullEmptyException("Input can't be null or empty");
         }
     }
 
-    public int getStringLength(String inputstring){
+    public int getStringLength(String inputstring) throws NullEmptyException{
+		checkNullOrEmpty(inputstring);
         return inputstring.length();
     }
 
-    public char[] ConvertCharArray(String chararrayinput){
+    public char[] ConvertCharArray(String chararrayinput) throws NullEmptyException{
+		checkNullOrEmpty(chararrayinput);
         return chararrayinput.toCharArray();
     }
 
     public char getPenultimateChar(String penultimateinput, int indexofcharacter) throws NullEmptyException{
         if (penultimateinput.length() < indexofcharacter) {
-            throw new NullEmptyException("String is too little");
+            throw new NullEmptyException("String is too little to have a penultimate ");
         }
         return penultimateinput.charAt(penultimateinput.length() - indexofcharacter);
     }
@@ -51,7 +52,7 @@ public class Task {
             throw new NullEmptyException("Input must be greater than 0");
         }
         else if (lastncharinput.length() < endcharlength){
-            return lastncharinput;
+            throw new NullEmptyException("String doesn't contain " + endcharlength + "characters");
         } 
 		else {
             return lastncharinput.substring(lastncharinput.length() - endcharlength);
@@ -62,9 +63,10 @@ public class Task {
         if (startcharlength <= 0){
             throw new NullEmptyException("Input must be greater than 0");
         }
-        else if (firstncharinput.length() < startcharlength){
-            return firstncharinput;
-        } else {
+        else if(firstncharinput.length() < startcharlength){
+            throw new NullEmptyException("String doesn't contain " + startcharlength + "characters");
+        } 
+		else{
             return firstncharinput.substring(0, startcharlength);
         }
     }
@@ -72,21 +74,21 @@ public class Task {
     public String replaceSubstring(String replacefirstninput , String subcharacters , int noofcharacterstoreplace) throws NullEmptyException {
         checkNullOrEmpty(replacefirstninput);
 		checkNullOrEmpty(subcharacters);
-        //int lensubchar = subcharacters.length();
-        if (replacefirstninput.length() < noofcharacterstoreplace){
+        if(replacefirstninput.length() < noofcharacterstoreplace){
             return subcharacters;
-        } else {
+        } 
+		else{
             return subcharacters + replacefirstninput.substring(noofcharacterstoreplace);
         }
     }
 
-    public Boolean checkingFirstThree(String startswithinput , String startchars) throws NullEmptyException{
+    public Boolean compareStartChars(String startswithinput , String startchars) throws NullEmptyException{
         checkNullOrEmpty(startswithinput);
 		checkNullOrEmpty(startchars);
         return startswithinput.startsWith(startchars);
     }
 
-    public Boolean checkingLastTwo(String endswithinput , String endchars) throws NullEmptyException{
+    public Boolean compareEndChars(String endswithinput , String endchars) throws NullEmptyException{
         checkNullOrEmpty(endswithinput);
 		checkNullOrEmpty(endchars);
         return endswithinput.endsWith(endchars);
@@ -99,29 +101,26 @@ public class Task {
     public String convertingToLowerCase(String tolowercaseinput){
         return tolowercaseinput.toLowerCase();
     }
+	
+	public String reversingString(String reversinginput){
+		char[] reverselist = reversinginput.toCharArray();
+		int leftend = 0;
+		int rightend = reverselist.length - 1;
+		while (leftend < rightend) {
+			char tempuse = reverselist[leftend];
+			reverselist[leftend] = reverselist[rightend];
+			reverselist[rightend] = tempuse;
+			leftend++;
+			rightend--;
+		}
+		return new String(reverselist);
+	}
 
-    public String reversingString(String reversinginput){
-        ArrayList<Character> charlist = new ArrayList<>();
-        for (char c : reversinginput.toCharArray()) {
-            charlist.add(c);
-        }
-        Collections.reverse(charlist);
-        char[] reversedarray = new char[charlist.size()];
-        for (int i = 0; i < charlist.size(); i++) {
-            reversedarray[i] = charlist.get(i);
-        }
-        return new String(reversedarray);
-    }
-
-    public String concatenateMultipleString(String concatenatestringline , String splittingcharacter) throws NullEmptyException{
-        checkNullOrEmpty(concatenatestringline);
-        String concatenatedstring = "";
-        String[] concatenatedarray = concatenatestringline.split(splittingcharacter);
-        for (String i : concatenatedarray) {
-            concatenatedstring = concatenatedstring + i;
-        }
-        return concatenatedstring;
-    }
+	public String concatenateMultipleString(String concatenatestringline , String splittingcharacter) throws NullEmptyException{
+		checkNullOrEmpty(concatenatestringline);
+		checkNullOrEmpty(splittingcharacter);
+		return concatenatestringline.replaceAll(splittingcharacter , "");
+	}
 
     public String[] encloseInArray(String multistringinput , String splittingchars) throws NullEmptyException{
         checkNullOrEmpty(multistringinput);

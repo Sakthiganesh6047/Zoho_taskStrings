@@ -45,11 +45,14 @@ public class Runner {
 						break;
 					}
 					catch (InputMismatchException e){
-						System.out.println("Invalid Choice, Please enter a valid number: ");
+						System.out.println("Invalid Choice, Please enter a valid number ");
 						scanner.nextLine();
 					}
 				}
-
+				if(enteredchoice < 0 || enteredchoice > 20){
+					System.out.println("Invalid Choice, Enter a choice from 0 to 20");
+				}
+				
 				switch (enteredchoice){
 					case 1:
 						if(args.length > 0){
@@ -251,6 +254,10 @@ public class Runner {
 		catch(NullEmptyException e){
 			System.out.println(e.getMessage());
 			}
+		
+		finally{
+			System.out.println("Operation executed successfully");
+		}
 		}
 		while (enteredchoice != 0);
     }
